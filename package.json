@@ -1,0 +1,23 @@
+{
+  "name": "edm-relay",
+  "version": "1.0.0",
+  "description": "node.js express server and kafka producer. Translates REST payloads into Kafka Messages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node",
+    "kafka",
+    "express"
+  ],
+  "author": "Trevor Scott",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "node-rdkafka": "^2.4.2"
+  }
+}
