@@ -33,7 +33,7 @@ Here are guidlines for setting up a multi-tenant kafka cluster, a test topic and
 heroku plugins:install heroku-kafka
 heroku addons:create heroku-kafka:basic-0 
 heroku kafka:topics:create $kafka_topic1
-heroku kafka:consumer-groups:create dfe-dashboard
+heroku kafka:consumer-groups:create <consumer group name>
 heroku config:set KAFKA_TOPIC:$kafka_topic1
 ```
 
