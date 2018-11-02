@@ -34,7 +34,7 @@ heroku plugins:install heroku-kafka
 heroku addons:create heroku-kafka:basic-0 
 heroku kafka:topics:create $kafka_topic1
 heroku kafka:consumer-groups:create <consumer group name>
-heroku config:set KAFKA_TOPIC:$kafka_topic1
+heroku config:set KAFKA_TOPIC=$kafka_topic1
 ```
 
 ```
