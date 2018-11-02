@@ -21,7 +21,7 @@ This app is part of a group of apps that all must be deployed in a particular or
 ## Initial Setup
 
 ```
-git clone 
+git clone git@github.com:trevorscott/edm-relay.git && cd edm-relay
 heroku create $appname
 ```
 
