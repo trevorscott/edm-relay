@@ -41,7 +41,7 @@ producer.connect();
 
 // Wait for the ready event before proceeding
 producer.on('ready', function() {
-  console.log("Kafka producer ready")
+  console.log(`Kafka producer ready to produce to ${process.env.KAFKA_PREFIX}${process.env.KAFKA_TOPIC}`)
 });
 
 // Any errors we encounter, including connection errors
