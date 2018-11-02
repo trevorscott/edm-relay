@@ -12,7 +12,7 @@ const PORT       = process.env.PORT || 5000;
 const nodeEnv    = process.env.NODE_ENV || 'development';
 
 const currentPath  = process.cwd();
-require('./write-certs-to-file.js')(currentPath);
+// require('./write-certs-to-file.js')(currentPath);
 
 // Kafka Config
 const kafkaBrokerUrls = process.env.KAFKA_URL;
@@ -29,9 +29,9 @@ var producer = new Kafka.Producer({
   'group.id': `${process.env.KAFKA_PREFIX}dfe-dashboard`,
   'metadata.broker.list': brokerHostnames.toString(),
   'security.protocol': 'SSL',
-  'ssl.ca.location':          `${currentPath}/temp-ssl/KAFKA_TRUSTED_CERT`,
-  'ssl.certificate.location': `${currentPath}/temp-ssl/KAFKA_CLIENT_CERT`,
-  'ssl.key.location':         `${currentPath}/temp-ssl/KAFKA_CLIENT_CERT_KEY`,
+  'ssl.ca.location':          "tmp/env/KAFKA_TRUSTED_CERT",
+  'ssl.certificate.location': "tmp/env/KAFKA_CLIENT_CERT",
+  'ssl.key.location':         "tmp/env/KAFKA_CLIENT_CERT_KEY",
   'enable.auto.commit': true
 }, {});
 
