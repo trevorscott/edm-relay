@@ -12,7 +12,6 @@ const PORT       = process.env.PORT || 5000;
 const nodeEnv    = process.env.NODE_ENV || 'development';
 
 const currentPath  = process.cwd();
-// require('./write-certs-to-file.js')(currentPath);
 
 // Kafka Config
 const kafkaBrokerUrls = process.env.KAFKA_URL;
