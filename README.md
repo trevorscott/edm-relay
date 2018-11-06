@@ -90,10 +90,12 @@ These files must contain values generated from your [kafka addon SSL config vars
 
 ```json
 {
-  "event_name": "test",
-  "event": "test-event",
+  "topic": "cool_topic",
   "event_timestamp": "now",
-  "properties": {}
+  "properties": {
+    "property1": "value1"
+    ...
+  }
 }
 ```
 
