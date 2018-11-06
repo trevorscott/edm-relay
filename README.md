@@ -41,6 +41,14 @@ heroku config:set KAFKA_TOPIC=$kafka_topic1
 git push heroku master
 ```
 
+## Scale Up
+
+Scale up your service to avoid sleeping dynos.
+
+```
+heroku ps:scale web=1:standard-1x
+```
+
 # local dev
 
 ## Mac OS High Sierra
