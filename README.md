@@ -92,21 +92,6 @@ cert
 
 These files must contain values generated from your [kafka addon SSL config vars](https://devcenter.heroku.com/articles/kafka-on-heroku#connecting-to-a-kafka-cluster).
 
-## Data
-
-### Event Schema
-
-```json
-{
-  "topic": "cool_topic",
-  "event_timestamp": "now",
-  "properties": {
-    "property1": "value1"
-    ...
-  }
-}
-```
-
 ## Run your app
 
 Start the server from root:
