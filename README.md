@@ -92,6 +92,13 @@ cert
 
 These files must contain values generated from your [kafka addon SSL config vars](https://devcenter.heroku.com/articles/kafka-on-heroku#connecting-to-a-kafka-cluster).
 
+## Write SSL Config to File
+
+```
+chmod +x .profile
+./.profile
+```
+
 ## Run your app
 
 Start the server from root:
