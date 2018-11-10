@@ -8,12 +8,10 @@ const bodyParser = require('body-parser');
 const Kafka      = require('node-rdkafka');
 const express    = require('express');
 
-
 const PORT       = process.env.PORT || 5000;
 const nodeEnv    = process.env.NODE_ENV || 'development';
 
 const currentPath  = process.cwd();
-
 const connectTimeout = 5000;
 
 if (!process.env.KAFKA_PREFIX)          throw new Error('KAFKA_PREFIX is not set.')
@@ -21,6 +19,15 @@ if (!process.env.KAFKA_URL)             throw new Error('KAFKA_URL is not set.')
 if (!process.env.KAFKA_TRUSTED_CERT)    throw new Error('KAFKA_TRUSTED_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT)     throw new Error('KAFKA_CLIENT_CERT is not set.')
 if (!process.env.KAFKA_CLIENT_CERT_KEY) throw new Error('KAFKA_CLIENT_CERT_KEY is not set.')
+if (!fs.existsSync('tmp/env/KAFKA_TRUSTED_CERT')) {
+  throw new Error('KAFKA_TRUSTED_CERT has not been written to file. Try executing the .profile script.');
+}
+if (!fs.existsSync('tmp/env/KAFKA_CLIENT_CERT')) {
+  throw new Error('KAFKA_CLIENT_CERT has not been written to file. Try executing the .profile script.');
+}
+if (!fs.existsSync('tmp/env/KAFKA_CLIENT_CERT_KEY')) {
+  throw new Error('KAFKA_CLIENT_CERT_KEY has not been written to file. Try executing the .profile script.');
+}
 
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
