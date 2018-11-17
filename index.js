@@ -129,7 +129,7 @@ if (cluster.isMaster) {
       );
     } catch (err) {
       console.error('A problem occurred when sending our message');
-      console.error(err);
+      throw err;
     }
     res.status(200).send("{\"message\":\"Success!\"}")
   });
@@ -156,7 +156,7 @@ if (cluster.isMaster) {
       );
     } catch (err) {
       console.error('A problem occurred when sending our message');
-      console.error(err);
+      throw err;
     }
     res.status(200).send("{\"message\":\"Success!\"}")
   });
