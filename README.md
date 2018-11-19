@@ -25,7 +25,7 @@ This app is part of a group of apps that all must be deployed in a particular or
 
 ```
 git clone git@github.com:trevorscott/edm-relay.git && cd edm-relay
-heroku create $appname
+heroku create $appName
 ```
 
 ## Heroku Kafka CLI Plug-in
@@ -105,7 +105,7 @@ Since we are using production kafka, you will need to follow the Kafka Setup ins
 
 Before you can `npm-install` you must set the following enviornment variables:
 
-```
+```bash
 export CPPFLAGS=-I/usr/local/opt/openssl/include
 export LDFLAGS=-L/usr/local/opt/openssl/lib
 ```
@@ -122,7 +122,7 @@ See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details
 
 Once you create your kafka cluster set all of the required config vars on your local machine. Run `heroku config` to see all relevant info.
 
-```
+```bash
 export KAFKA_URL=<your broker urls> 
 export KAFKA_PREFIX=<your-kafka-prefix>
 export KAFKA_TRUSTED_CERT="multi
@@ -144,7 +144,6 @@ Save this info in a safe place because you will need to set these variables for 
 Now that you have set the KAFKA ssl enviornment variables they will need to be written to file. A helper script is provided:
 
 ```
-chmod +x .profile
 ./.profile
 ```
 
