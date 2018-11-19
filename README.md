@@ -54,10 +54,10 @@ heroku addons:create heroku-kafka:basic-0
 We will be tracking button clicks and page load events with `edm-ui` so we want to create topic names that reflect that. We need to create both production and local dev topics:
 
 ```
-export topic1='edm-button-click'
-export topic1Dev='edm-button-click-dev'
-export topic2='edm-page-load'
-export topic2Dev='edm-page-load-dev'
+export topic1='edm-ui-click'
+export topic1Dev='edm-ui-click-local'
+export topic2='edm-ui-pageload'
+export topic2Dev='edm-ui-pageload-local'
 ```
 
 ```
@@ -70,10 +70,10 @@ heroku kafka:topics:create $topic2Dev
 Similarly we will have a total of 4 consumer groups:
 
 ```
-export cg1='cg-edm-stream'
-export cg1Dev='cg-edm-stream-dev'
-export cg2='cg-edm-stats'
-export cg2Dev='cg-edm-stats-dev'
+export cg1='edm-consumer-group-1'
+export cg1Dev='edm-consumer-group-1-local'
+export cg2='edm-consumer-group-2'
+export cg2Dev='edm-consumer-group-2-local'
 ```
 
 ```
