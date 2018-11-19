@@ -112,12 +112,6 @@ export LDFLAGS=-L/usr/local/opt/openssl/lib
 
 See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details.
 
-## Set Up
-```
-  git clone git@github.com:trevorscott/edm-relay.git && cd edm-relay 
-  npm install
-```
-
 ## Required config
 
 Once you create your kafka cluster set all of the required config vars on your local machine. Run `heroku config` to see all relevant info.
@@ -152,5 +146,6 @@ Now that you have set the KAFKA ssl enviornment variables they will need to be w
 Start the server from root:
 
 ```
+npm install
 npm start
 ```
