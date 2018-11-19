@@ -51,7 +51,7 @@ First create a multi-tenant (basic-0) Kafka Cluster:
 heroku addons:create heroku-kafka:basic-0 
 ```
 
-We will be tracking button clicks and page load events with `edm-ui` so we want to create topic names that reflect that. We need to create both production and local dev topics:
+We will be tracking button clicks and page load events with `edm-ui` so we will create topic names that reflect that. Below are the default topic names for this demo, it is suggested that you do not change them. If you do change them, there will be extra config that you will need to set for `edm-stats` and `edm-ui`. We need to create both production and local dev topics:
 
 ```bash
 export topic1='edm-ui-click'
