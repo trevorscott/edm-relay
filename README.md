@@ -7,13 +7,16 @@ Created with Blizzard's node.js kafka producer: [node-rdkafka](https://github.co
 This app is part of a group of apps that all must be deployed in a particular order:
 
 1. [edm-relay](https://github.com/trevorscott/edm-relay)
-1. [edm-ui](https://github.com/trevorscott/edm-ui)
 1. [edm-stream](https://github.com/trevorscott/edm-stream)
+1. [edm-stats](https://github.com/trevorscott/edm-stats)
+1. [edm-ui](https://github.com/trevorscott/edm-ui)
 1. [edm-dashboard](https://github.com/trevorscott/edm-dashboard)
 
 # Requirements
 
 * Heroku Account
+* Apache Kafka on Heroku add-on
+* Herkou Kafka CLI plug-in
 
 
 # Deploy
@@ -25,17 +28,62 @@ git clone git@github.com:trevorscott/edm-relay.git && cd edm-relay
 heroku create $appname
 ```
 
+## Heroku Kafka CLI Plug-in
+
+In order to interact with your Apache Kafka on Heroku cluster you will need the Heroku kafka CLI plug-in:
+
+```
+heroku plugins:install heroku-kafka
+```
+
 ## Kafka Setup
 
-Here are guidlines for setting up a multi-tenant kafka cluster, a test topic and a consumer group. Replace $kafka_topic1 with a string value of your choice or set it explicitly: `export kafka_topic1=<your topic name>`.
+The following steps will walk you through creating:
+1. A multi-tenant (basic-0) Heroku Kafka Cluster 
+1. 2 production kafka topics
+1. 2 topics for local development
+1. 2 production consumer groups
+1. 2 local development consumer groups
+
+First create a multi-tenant (basic-0) Kafka Cluster:
 
 ```bash
-heroku plugins:install heroku-kafka
 heroku addons:create heroku-kafka:basic-0 
-heroku kafka:topics:create $kafka_topic1
-heroku kafka:consumer-groups:create <consumer group name>
-heroku config:set KAFKA_TOPIC=$kafka_topic1
 ```
+
+We will be tracking button clicks and page load events with `edm-ui` so we want to create topic names that reflect that. We need to create both production and local dev topics:
+
+```
+export topic1='edm-button-click'
+export topic1Dev='edm-button-click-dev'
+export topic2='edm-page-load'
+export topic2Dev='edm-page-load-dev'
+```
+
+```
+heroku kafka:topics:create $topic1
+heroku kafka:topics:create $topic1Dev
+heroku kafka:topics:create $topic2
+heroku kafka:topics:create $topic2Dev
+```
+
+Similarly we will have a total of 4 consumer groups:
+
+```
+export cg1='cg-edm-stream'
+export cg1Dev='cg-edm-stream-dev'
+export cg2='cg-edm-stats'
+export cg2Dev='cg-edm-stats-dev'
+```
+
+```
+heroku kafka:consumer-groups:create $cg1
+heroku kafka:consumer-groups:create $cg1Dev
+heroku kafka:consumer-groups:create $cg2
+heroku kafka:consumer-groups:create $cg2Dev
+```
+
+## Deploy to Heroku
 
 ```
 git push heroku master
@@ -51,33 +99,32 @@ heroku ps:scale web=1:standard-1x
 
 # local dev
 
-## Mac OS High Sierra
+Since we are using production kafka, you will need to follow the Kafka Setup instructions above first.
 
-OpenSSL has been upgraded in High Sierra and homebrew does not overwrite default system libraries. That means when building node-rdkafka, because you are using openssl, you need to tell the linker where to find it:
+## Installing `lib-rdkafka` on Mac OS
+
+Before you can `npm-install` you must set the following enviornment variables:
 
 ```
 export CPPFLAGS=-I/usr/local/opt/openssl/include
 export LDFLAGS=-L/usr/local/opt/openssl/lib
 ```
 
-Then you can run npm install on your application to get it to build correctly.
-
 See https://github.com/Blizzard/node-rdkafka#mac-os-high-sierra for more details.
 
 ## Set Up
 ```
-  git clone 
+  git clone git@github.com:trevorscott/edm-relay.git && cd edm-relay 
   npm install
 ```
 
 ## Required config
 
-Once you create your kafka cluster set all of the required config vars on your local machine:
-
+Once you create your kafka cluster set all of the required config vars on your local machine. Run `heroku config` to see all relevant info.
 
 ```
-export KAFKA_URL=<your broker urls> \
-export KAFKA_TOPIC=<name of kafka topic>
+export KAFKA_URL=<your broker urls> 
+export KAFKA_PREFIX=<your-kafka-prefix>
 export KAFKA_TRUSTED_CERT="multi
 line 
 cert"
@@ -90,18 +137,17 @@ cert
 "
 ```
 
-These files must contain values generated from your [kafka addon SSL config vars](https://devcenter.heroku.com/articles/kafka-on-heroku#connecting-to-a-kafka-cluster).
+Save this info in a safe place because you will need to set these variables for both `edm-stats` and `edm-stream`.
 
-<<<<<<< HEAD
-=======
 ## Write SSL Config to File
+
+Now that you have set the KAFKA ssl enviornment variables they will need to be written to file. A helper script is provided:
 
 ```
 chmod +x .profile
 ./.profile
 ```
 
->>>>>>> 41b5c252ea3ec0d716fff561605a9f1a04b05e05
 ## Run your app
 
 Start the server from root:
