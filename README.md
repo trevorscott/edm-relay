@@ -20,8 +20,11 @@ This app is part of a group of apps that all must be deployed in a particular or
 * Apache Kafka on Heroku add-on
 * Herkou Kafka CLI plug-in
 
-
 # Deploy
+
+## Terraform Deploy
+
+To deploy this entire demo with a single command see [edm-terraform](https://github.com/trevorscott/edm-terraform).
 
 ## Initial Setup
 
